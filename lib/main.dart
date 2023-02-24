@@ -1,5 +1,7 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:dots_indicator/dots_indicator.dart';
+
+import 'dart:developer' as devtools;
 
 void main() {
   runApp(const MyApp());
@@ -89,17 +91,23 @@ class MyHomePage extends StatelessWidget {
           const SizedBox(height: 100),
           TextButton(
             onPressed: () {
-              _pageController.nextPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
-              _pageIndex.value += 1;
+              
+              devtools.log('page: ${_pageController.page}');
+
+              // Don't jump past the last page
+              if (_pageController.page != 4) {
+                _pageController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+                _pageIndex.value += 1;
+              }
             },
             child: const Text('Next'),
           ),
           ValueListenableBuilder(
             valueListenable: _pageIndex,
-            builder: (context, int index, child) {
+            builder: (_, int index, __) {
               return DotsIndicator(
                 dotsCount: 5,
                 position: index.toDouble(),
@@ -107,7 +115,8 @@ class MyHomePage extends StatelessWidget {
                   size: const Size.square(9.0),
                   activeSize: const Size(18.0, 9.0),
                   activeShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
               );
             },
