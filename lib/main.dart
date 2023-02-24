@@ -42,16 +42,16 @@ class MyHomePage extends StatelessWidget {
             child: SizedBox.shrink(),
           ),
           SizedBox(height: size.height * .1),
-          const Text('Title / Logo'),
+          const Text(
+            'Welcome!',
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.black,
+            ),
+          ),
           const SizedBox(height: 50),
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: Colors.red,
-                ),
-              ),
+            child: SizedBox(
               width: double.infinity,
               child: PageView(
                 controller: _pageController,
@@ -91,7 +91,6 @@ class MyHomePage extends StatelessWidget {
           const SizedBox(height: 100),
           TextButton(
             onPressed: () {
-              
               devtools.log('page: ${_pageController.page}');
 
               // Don't jump past the last page
